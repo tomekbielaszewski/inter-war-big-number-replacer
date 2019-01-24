@@ -8,44 +8,57 @@
 // @grant        none
 // ==/UserScript==
 
-(function() {
-    function replaceLongNumbers() {
-        $('body :not(script) :not(style)').contents().filter(function() {
-            return this.nodeType === 3;
-        }).replaceWith(function() {
-            let {reg, text} = detectAndReplace(this.nodeValue);
-            return this.nodeValue.replace(reg, text)
-        });
+(function () {
+  const TEXT_NODE_TYPE = 3;
+  const BIG_NUMBER_REGEXP = /(\d{1,3}\.){2,}\d{1,3}/g; //number in format 123.123.123
+
+  function replaceLongNumbers() {
+    $('body :not(script) :not(style)')
+      .contents()
+      .filter(function () {
+        return this.nodeType === TEXT_NODE_TYPE;
+      })
+      .replaceWith(function () {
+        return [this.nodeValue]
+          .map(t => t.split('\n'))
+          .flat()
+          .map(substituteMatching)
+          .join('\n');
+      });
+  }
+
+  function substituteMatching(text) {
+    while (containsBigNumber(text)) {
+      text = text.replace(BIG_NUMBER_REGEXP, substituteBigNumber);
     }
+    return text;
+  }
 
-    function detectAndReplace(text) {
-        if(text.indexOf('/') > 0) {
-            return {text, text}
-        }
-        let reg = /(\d{1,3}\.){2,}\d{1,3}/; //number in format 123.123.123
-        if(reg.test(text)) {
-            let kilos = count(text, /\./);
-            let num = /(\d{1,3}\.)?/.exec(text);
-            num = num && num.length > 0 ? num[0] : num;
+  function containsBigNumber(text) {
+    return BIG_NUMBER_REGEXP.test(text);
+  }
 
-            console.log("kilos: " + kilos);
-            console.log(num);
+  function substituteBigNumber(text) {
+    let kilos = count(text, /\./);
+    let num = /(\d{1,3}\.)?/.exec(text);
+    num = num && num.length > 0 ? num[0] : num;
+    text = num + "k" + kilos;
+    return text;
+  }
 
-            text = num + "k" + kilos
-        }
-        return {text, reg};
-    }
+  function count(s1, letter) {
+    return (s1.match(RegExp(letter, 'g')) || []).length;
+  }
 
-    function count(s1, letter) {
-        return ( s1.match( RegExp(letter,'g') ) || [] ).length;
-    }
 
+  substituteMatching('123.123.123');
+
+  replaceLongNumbers();
+
+  let oldResourceTicker = resourceTicker;
+
+  resourceTicker = function (config) {
+    oldResourceTicker(config);
     replaceLongNumbers();
-
-    let oldResourceTicker = resourceTicker;
-
-    resourceTicker = function (config) {
-        oldResourceTicker(config);
-        replaceLongNumbers();
-    }
+  };
 })();
