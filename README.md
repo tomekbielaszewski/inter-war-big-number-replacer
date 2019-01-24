@@ -12,8 +12,6 @@ jakgdybyśmy pisali o wielokrotności miary kilo. Na przykład przyjeło się, �
 
 Tutaj 123.k3 symbolizowałby liczbę z przedziału 123'000'000'000 - 123'999'999'999.
 
-wszystkie* - licznik energii na planecie tymczasowo zostaje pominięty
-
 ## Wygląd
 
 ![inter-war-big-number-replacer_screenshot](./inter-war-big-number-replacer_screenshot.PNG)
