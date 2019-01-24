@@ -6,6 +6,9 @@
 // @author       tomekbielaszewski
 // @match        http://inter-war.com.pl/game.php*
 // @grant        none
+// @updateURL    https://github.com/tomekbielaszewski/inter-war-big-number-replacer/raw/master/inter-war-big-number-replacer.user.js
+// @installURL   https://github.com/tomekbielaszewski/inter-war-big-number-replacer/raw/master/inter-war-big-number-replacer.user.js
+// @downloadURL  https://github.com/tomekbielaszewski/inter-war-big-number-replacer/raw/master/inter-war-big-number-replacer.user.js
 // ==/UserScript==
 
 (function () {
