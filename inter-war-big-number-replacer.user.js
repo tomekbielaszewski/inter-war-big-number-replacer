@@ -50,9 +50,6 @@
     return (s1.match(RegExp(letter, 'g')) || []).length;
   }
 
-
-  substituteMatching('123.123.123');
-
   replaceLongNumbers();
 
   let oldResourceTicker = resourceTicker;
