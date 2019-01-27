@@ -18,9 +18,8 @@
   function replaceLongNumbers() {
     $('body :not(script) :not(style)')
       .contents()
-      .filter(function () {
-        return this.nodeType === TEXT_NODE_TYPE;
-      })
+      .filter(textNodesOnly)
+      .filter(notFleetPage0_3)
       .replaceWith(function () {
         return [this.nodeValue]
           .map(t => t.split('\n'))
@@ -28,6 +27,14 @@
           .map(substituteMatching)
           .join('\n');
       });
+  }
+
+  function textNodesOnly() {
+    return this.nodeType === TEXT_NODE_TYPE;
+  }
+
+  function notFleetPage0_3() {
+    return !this.baseURI.includes("page=fleet");
   }
 
   function substituteMatching(text) {
