@@ -50,9 +50,8 @@
 
   function substituteBigNumber(text) {
     let kilos = count(text, /\./);
-    let num = /(\d{1,3}\.)?/.exec(text);
-    num = num && num.length > 0 ? num[0] : num;
-    text = num + "k" + kilos;
+    let num = text.substring(0, 5);
+    text = num + " k" + kilos;
     return text;
   }
 
