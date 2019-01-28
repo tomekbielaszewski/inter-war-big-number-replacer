@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         InterWar: Big numbers replacer
 // @namespace    http://inter-war.com.pl/
-// @version      0.1
+// @version      0.2
 // @description  Replaces all big numbers in format of 123.123.123 to 123.k2
 // @author       tomekbielaszewski
 // @match        http://inter-war.com.pl/game.php*
